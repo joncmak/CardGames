@@ -6,7 +6,7 @@ import java.util.List;
 public class Card
 {
 	public static final List<String> sSuits = Arrays.asList("Diamond", "Club", "Heart", "Spade");
-	public static final List<String> sStringValues = Arrays.asList("Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Jack", "Queen", "King");
+	public static final List<String> sStringValues = Arrays.asList("Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King");
 	
 	private String mSuit;
 	private String mStringValue;

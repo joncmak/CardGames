@@ -1,14 +1,19 @@
 package com.github.joncmak.big2;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import com.github.joncmak.big2.player.Player;
+import com.github.joncmak.big2.player.PlayerAI;
 import com.github.joncmak.deckOfCards.Card;
 import com.github.joncmak.deckOfCards.Deck;
 
 public class big2
-{
-	private ArrayList<Card> dealerHand;
-	private ArrayList<Card> playerHand;
+{	
+	private ArrayList<Card> currentHand;
+	Player mPlayer;
+	PlayerAI mOpponent;
 	
 	private Deck mDeck;
 	
@@ -16,45 +21,47 @@ public class big2
 	{
 		mDeck = pDeck;
 		
-		dealerHand = new ArrayList<Card>();
-		playerHand = new ArrayList<Card>();
+		mPlayer = new Player();
+		mOpponent = new PlayerAI();
+		
+		currentHand = new ArrayList<Card>();
 	}
 	
-	public static int calculateValue(Card pCard)
+	public void gameStart(Scanner pInputScanner)
 	{
-		int result = 0;
+		mDeck.shuffle();
 		
-		//Calculate card number value
-		if(pCard.getIntValue() == 1)
+		mPlayer.addHand(mDeck.draw(13));
+		
+		boolean pass = false;
+		HandEvaluator eval = new HandEvaluator();
+		
+		while(!mPlayer.emptyHand() || !mOpponent.emptyHand())
 		{
-			result = 13;
+			List<Card> hand = mPlayer.playerTurn(pInputScanner, pass, eval);
+			
+			
 		}
-		else if(pCard.getIntValue() == 2)
+		
+		if(mPlayer.emptyHand() && !mOpponent.emptyHand())
 		{
-			result = 14;
+			//win
+			System.out.println("You win!");
+		}
+		else if(mOpponent.emptyHand() && !mPlayer.emptyHand())
+		{
+			//lose
+			System.out.println("You lose!");
 		}
 		else
 		{
-			result = pCard.getIntValue();
+			//err
 		}
-		
-		//Calculate suit value
-		if(pCard.getSuit() == "Diamond")
-		{
-			result += 1;
-		}
-		else if(pCard.getSuit() == "Club")
-		{
-			result += 2;
-		}
-		else if(pCard.getSuit() == "Heart")
-		{
-			result += 3;
-		}
-		else if(pCard.getSuit() == "Club")
-		{
-			result += 4;
-		}
-		return result;
+	}
+	
+	public void newRound()
+	{
+		mPlayer.clearHand();
+		mOpponent.clearHand();
 	}
 }
