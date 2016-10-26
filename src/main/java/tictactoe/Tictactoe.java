@@ -18,7 +18,18 @@ public class Tictactoe
 	
 	public void printBoard()
 	{
-		
+		for(int i = 0; i < 3; i++)
+		{
+			for(int j = 0; j < 3; j++)
+			{
+				String symbol = getSymbol(i, j);
+				if(symbol.equals(""))
+					System.out.print("[ ]");
+				else
+					System.out.print("[" + symbol  + "]");
+			}
+			System.out.println();
+		}
 	}
 	
 	private void fillNumpadCoords()

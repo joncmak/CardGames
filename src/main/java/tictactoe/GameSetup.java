@@ -77,7 +77,9 @@ public class GameSetup
 					}
 				}
 				//AI turn
-				ai.calculateMove();
+				game.printBoard();
+				ai.calculateMove(game);
+				game.printBoard();
 			}
 			System.out.println("Game Over\n Play Again?");
 			//play again?
